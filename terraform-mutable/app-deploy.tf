@@ -8,7 +8,8 @@ resource "null_resource" "app-deploy" {
       host     = aws_spot_instance_request.ec2-spot.*.private_ip[count.index]
     }
     inline = [
-      "ansible-pull -u https://github.com/vasanthi-dev/ansible.git roboshop-pull.yml -e COMPONENT=${var.COMPONENT} -e ENV=${var.ENV}"
+      "ansible-pull -i localhost, -u https://github.com/vasanthi-dev/ansible.git roboshop-pull.yml -e COMPONENT=${var.COMPONENT} -e ENV=${var.ENV}"
+      //"ansible-pull -i localhost,  -U https://github.com/vasanthi-dev/ansible.git roboshop-pull.yml -e COMPONENT=catalogue -e ENV=dev"
     ]
   }
 }
