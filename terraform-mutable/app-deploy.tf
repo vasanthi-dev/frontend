@@ -8,7 +8,7 @@ resource "null_resource" "app-deploy" {
       host     = aws_spot_instance_request.ec2-spot.*.private_ip[count.index]
     }
     inline = [
-      "ansible-pull -U https://github.com/vasanthi-dev/ansible.git roboshop-pull.yml -e COMPONENT=${COMPONENT} -e ENV=dev -e APP_VERSION=${var.APP_VERSION} -e NEXUS_USERNAME=${local.NEXUS_USERNAME} -e NEXUS_PASSWORD=${local.NEXUS_PASSWORD}"
+      "ansible-pull -U https://github.com/vasanthi-dev/ansible.git roboshop-pull.yml -e COMPONENT=${var.COMPONENT} -e ENV=dev -e APP_VERSION=${var.APP_VERSION} -e NEXUS_USERNAME=${local.NEXUS_USERNAME} -e NEXUS_PASSWORD=${local.NEXUS_PASSWORD}"
     ]
   }
 }
