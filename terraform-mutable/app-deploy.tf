@@ -9,7 +9,7 @@ resource "null_resource" "app-deploy" {
     }
     inline = [
      // "ansible-pull -i localhost, -u https://github.com/vasanthi-dev/ansible.git roboshop-pull.yml -e COMPONENT=${var.COMPONENT} -e ENV=${var.ENV} -e APP_VERSION=${var.APP_VERSION}"
-      "ansible-pull -U https://github.com/vasanthi-dev/ansible.git roboshop-pull.yml -e COMPONENT=catalogue -e ENV=dev -e APP_VERSION=${var.APP_VERSION} -e NEXUS_USERNAME=${jsondecode(data.aws_secretsmanager_secret_version.secret.secret_string)["NEXUS_USERNAME"]} -e NEXUS_PASSWORD=${jsondecode(data.aws_secretsmanager_secret_version.secret.secret_string)["NEXUS_PASSWORD"]} "
+      "ansible-pull -U https://github.com/vasanthi-dev/ansible.git roboshop-pull.yml -e COMPONENT=catalogue -e ENV=dev -e APP_VERSION=${var.APP_VERSION} -e NEXUS_USERNAME=${nonsensitive(jsondecode(data.aws_secretsmanager_secret_version.secret.secret_string)["NEXUS_USERNAME"])} -e NEXUS_PASSWORD=${nonsensitive(jsondecode(data.aws_secretsmanager_secret_version.secret.secret_string)["NEXUS_PASSWORD"])} "
     ]
   }
 }
